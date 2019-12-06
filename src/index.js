@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <Provider value={store}>
-      <StatusBar barStyle="light-content" backgroundColor="purple" />
+      <StatusBar barStyle="light-content" backgroundColor="#112" />
       <Routes />
     </Provider>
   );

@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
-import { Text } from 'react-native';
+
 import * as CameraBottomsAction from '../../store/modules/cameraBottoms/actions';
-import { Container, ChangeCameraView } from './bottomOptions.styles';
+import {
+  Container,
+  ChangeCameraView,
+  ChangeCameraText,
+} from './bottomOptions.styles';
 import { Store } from '../../store';
 
 export default function BottomOptions() {
@@ -19,7 +23,7 @@ export default function BottomOptions() {
   return (
     <Container>
       <ChangeCameraView onPress={handleToggleCamera}>
-        <Text>Change Camera</Text>
+        <ChangeCameraText>Change Camera</ChangeCameraText>
       </ChangeCameraView>
     </Container>
   );

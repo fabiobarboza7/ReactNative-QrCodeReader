@@ -9,54 +9,25 @@ import BottomOptions from '../BottomOptions';
 
 export default function Camera() {
   const [state] = useContext(Store);
-  const [listOfQrs, setListOfQrs] = useState([]);
-  const [activeCam, setActiveCam] = useState(true);
 
-  function barcodeRecognized({ data }) {
-    function openLink() {
-      Linking.canOpenURL(data).then(supported => {
-        if (supported) {
-          Linking.openURL(data);
-        } else {
-          Alert.alert(`Don't know how to open URI: ${data}`);
-        }
-      });
-    }
-
-    if (!listOfQrs.includes(data)) {
-      RNBeep.beep();
-      setListOfQrs([...listOfQrs, data]);
-      setActiveCam(true);
-      ToastAndroid.showWithGravity(
-        'GRAVADO COM SUCESSO',
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER
-      );
-
-      Alert.alert(
-        'So...',
-        'open url in browser?',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
-            style: 'cancel',
-          },
-          { text: 'OK', onPress: () => openLink() },
-        ],
-        { cancelable: false }
-      );
-    } else {
-      setActiveCam(false);
-    }
+  function openLink(data) {
+    Linking.canOpenURL(data).then(supported => {
+      if (supported) {
+        Linking.openURL(data);
+      } else {
+        Alert.alert(`Don't know how to open URI: ${data}`);
+      }
+    });
   }
 
-  if (!activeCam) {
+  function barcodeRecognized({ data }) {
+    RNBeep.beep();
     ToastAndroid.showWithGravity(
-      'JÁ FOI LIDO',
+      'LIDO COM SUCESSO',
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
+    openLink(data);
   }
 
   return (
@@ -69,7 +40,7 @@ export default function Camera() {
             : RNCamera.Constants.Type.back
         }
       >
-        <BarcodeMask edgeColor="purple" backgroundColor="transparent" />
+        <BarcodeMask edgeColor="#c47308" backgroundColor="transparent" />
       </RNCameraStyled>
       <BottomOptions />
     </>
